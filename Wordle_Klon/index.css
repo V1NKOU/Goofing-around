@@ -1,31 +1,231 @@
-#title {
-    text-align: center;
-    font-size: 4rem;
-    font-family: Lexend;
+html {
+    overflow: hidden;
+}
+body {
+    background-color: white;
+}
+main {
+    height: 0;
+    width: 0;
 }
 
+#title1 {
+    text-align: center;
+    font-size: 3rem;
+    font-family: Lexend;
+    margin-top: 25vh;
+    margin-bottom: 0;
+    height: 20vh;
+}
+
+#underTitle {
+    text-align: center;
+    font-size: 0.7rem;
+    font-family: Lexend;
+    margin: 0px;
+    margin-top: -10vh;  
+}
+
+
+button {
+    margin-top: 5vh;
+    display: flex;
+    justify-self: center;
+    border: 1px solid #dfdfdf;
+    background-color: #ededed;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    transition: 0.4s;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 2px 2px rgb(69, 69, 69);;
+    cursor: pointer;
+}
+
+#title2 {
+    margin-bottom:2vh;
+    text-align: center;
+    font-family: Lexend;
+    font-size: 3rem;
+    font-weight: 600;
+}
 #game-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    height: 100vh;
+    width: 100vw;
 }
-.boxes {
+#game-container > * {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+#boxes {
     display: grid;
     grid-template-rows: repeat(6, 1fr);
-    
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3vh;
+    color: black;
 }
 .row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
-.box {
-    border: 3px solid black;
-    width: 75px;
-    height: 75px;
+
+#letters {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-content: center;
+}
+#letRow1 {
+    display: flex;
+    grid-template-columns: repeat(10, 1fr);
+    justify-content: center;
+}
+#letRow2, #letRow3 {
+    display: flex;
+    grid-template-columns: repeat(9, 1fr);
+    justify-content: center;
+}
+
+
+@keyframes pop {
+    0% {transform: scale(1); }
+    50% {transform: scale(1.1); }
+    100% {transform: scale(1)}
+}
+
+@keyframes yellow {
+    0% {transform: scale(1) rotate(0deg); background-color:white; color: black;}
+    33% {transform: scale(1.05) rotate(5deg);}
+    66% {transform: scale(1.05) rotate(-5deg);}
+    100% {transform: scale(1) rotate(0deg); background-color:rgb(210, 197, 16); color: white;}
+}
+@keyframes green {
+    0% {transform: scale(1) rotate(0deg); background-color:white; color: black;}
+    33% {transform: scale(1.05) rotate(5deg);}
+    66% {transform: scale(1.05) rotate(-5deg);}
+    100% {transform: scale(1) rotate(0deg); background-color:rgb(86, 160, 86); color: white;}
+}
+@keyframes grey {
+    0% {transform: scale(1) rotate(0deg); background-color:white; color: black;}
+    33% {transform: scale(1.05) rotate(5deg);}
+    66% {transform: scale(1.05) rotate(-5deg);}
+    100% {transform: scale(1) rotate(0deg); background-color:rgb(130, 130, 130); color: white;}
+}
+.box {  
+    border: 1px solid #dfdfdf;
+    background-color: #ededed;
+    color:rgb(69, 69, 69);
+    width: 50px;
+    height: 50px;
     margin: 3px;
     border-radius: 7px;;
-    font-size: 3rem;
+    font-size: 2rem;
     text-align: center;
-    line-height: 4.5rem;
+    line-height: 3rem;
     font-family: Lexend;
     font-weight: 600;
+    user-select: none;
+}
+
+.letBox {
+    border: 1px solid #dfdfdf;
+    background-color: #ededed;
+    color:rgb(69, 69, 69);
+    width: 40px;
+    height: 50px;
+    margin: 3px;
+    border-radius: 5px;;
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 3rem;
+    font-family: Lexend;
+    font-weight: 600;
+    transition: transform 0.1s;
+    user-select: none;
+}
+.wideBox {
+    border: 1px solid #dfdfdf;
+    background-color: #ededed;
+    color:rgb(69, 69, 69);
+    width: 65px;
+    height: 50px;
+    margin: 3px;
+    border-radius: 5px;;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 3rem;
+    font-family: Lexend;
+    font-weight: 600;
+    transition: transform 0.1s;
+    user-select: none;
+}
+
+#backspaceIcon {
+    padding-right:3px;
+    height: 32px;
+    width: 32px;
+    fill: #454545;
+}
+
+#backspace {
+    font-size: 2.7rem;
+}
+
+.letBox:active, .wideBox:active {
+    transform: translateY(2px) !important;
+    cursor:pointer;
+}
+
+.letBox:hover, .wideBox:hover {
+    transform: translateY(-3px);
+    cursor:pointer;
+}
+/*.letBox.correctSpot, .letBox.wrongSpot, .box.wrongLetter {
+    
+}*/
+
+.letBox.correctSpot {
+    cursor:pointer;
+    background-color: rgb(86, 160, 86);
+    color: white;
+    transition: transform 0.1s;
+}
+.letBox.wrongSpot {
+    cursor:pointer;
+    background-color:rgb(210, 197, 16);
+    color: white;
+    transition: transform 0.1s;
+}
+.letBox.wrongLetter {
+    background-color: rgb(130, 130, 130);
+    cursor:pointer;
+    color: white;
+    transition: transform 0.1s;
+}
+
+
+.typed {
+    animation: pop 0.1s ease-in-out;
+}
+
+.box.wrongSpot {
+    animation: yellow 0.2s ease-in-out forwards;
+}
+
+.box.correctSpot {
+    animation: green 0.2s ease-in-out forwards;
+}
+.box.wrongLetter {
+    animation: grey 0.2s ease-in-out forwards;
 }

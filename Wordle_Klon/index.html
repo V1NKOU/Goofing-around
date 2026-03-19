@@ -3,15 +3,19 @@
     <link rel="stylesheet" href="index.css">
 <head>
     <meta charset="UTF-8" />
-    <title>Wurtle</title>
+    <title>Wordle</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <h1 id="title">Wurtle</h1>
-        <div id="game-container">
+    <div id="intro">
+    <h1 id="title1" class="title">Wordle</h1>
+    <h2 id="underTitle">Et 100% originalt spil lavet af mig</h2>
+    <button id="startBtn">Start</button>
+    </div>
+        <div id="game-container" style="display: none;">
+            <div id="title2" class="title">Wordle</div>
             <div id="boxes">
                 <div class="row" id="row1">
                     <div class="column box" id="box1"></div>
@@ -54,6 +58,42 @@
                     <div class="column box" id="box28"></div>
                     <div class="column box" id="box29"></div>
                     <div class="column box" id="box30"></div>
+                </div>
+            </div>
+            <div id="letters">
+                <div class="letRow" id="letRow1">
+                    <div class="letBox" id="letBox1"></div>
+                    <div class="letBox" id="letBox2"></div>
+                    <div class="letBox" id="letBox3"></div>
+                    <div class="letBox" id="letBox4"></div>
+                    <div class="letBox" id="letBox5"></div>
+                    <div class="letBox" id="letBox6"></div>
+                    <div class="letBox" id="letBox7"></div>
+                    <div class="letBox" id="letBox8"></div>
+                    <div class="letBox" id="letBox9"></div>
+                    <div class="letBox" id="letBox10"></div>
+                </div>
+                <div class="letRow" id="letRow2">
+                    <div class="letBox" id="letBox11"></div>
+                    <div class="letBox" id="letBox12"></div>
+                    <div class="letBox" id="letBox13"></div>
+                    <div class="letBox" id="letBox14"></div>
+                    <div class="letBox" id="letBox15"></div>
+                    <div class="letBox" id="letBox16"></div>
+                    <div class="letBox" id="letBox17"></div>
+                    <div class="letBox" id="letBox18"></div>
+                    <div class="letBox" id="letBox19"></div>
+                </div>
+                <div class="letRow" id="letRow3">
+                    <div class="wideBox" id="enter" onclick="enterClicked()">Enter</div>
+                    <div class="letBox" id="letBox20"></div>
+                    <div class="letBox" id="letBox21"></div>
+                    <div class="letBox" id="letBox22"></div>
+                    <div class="letBox" id="letBox23"></div>
+                    <div class="letBox" id="letBox24"></div>
+                    <div class="letBox" id="letBox25"></div>
+                    <div class="letBox" id="letBox26"></div>
+                    <div class="wideBox" id="backspace" onclick="backspaceClicked()"><svg id="backspaceIcon"xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m456-320 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 160q-19 0-36-8.5T296-192L80-480l216-288q11-15 28-23.5t36-8.5h440q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H360ZM180-480l180 240h440v-480H360L180-480Zm400 0Z"/></svg></div>
                 </div>
             </div>
         </div>
