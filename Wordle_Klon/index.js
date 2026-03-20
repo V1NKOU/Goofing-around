@@ -95,8 +95,11 @@ function enterClicked() {
                     var box = document.getElementById("boxes").children[currentRow].children[i]
                     box.style.animationDelay = `${i * 0.15}s`
                     box.classList.add("correctSpot")
-                    document.getElementById("boxes").children[currentRow].children[i].classList.remove("wrongSpot")
-                    setTimeout(() => document.querySelector(`[data-letter="${c}"]`).classList.add("correctSpot"), 750)
+                    setTimeout(() =>  { 
+                        document.querySelector(`[data-letter="${c}"]`).classList.add("correctSpot")
+                        document.querySelector(`[data-letter="${c}"]`).classList.remove("wrongSpot")
+                        document.querySelector(`[data-letter="${c}"]`).classList.remove("wrongLetter")
+                    }, i * 150)
                 }
             })
 
@@ -107,7 +110,9 @@ function enterClicked() {
                     letterCount[c] -= 1
                     document.getElementById("boxes").children[currentRow].children[i].style.animationDelay = `${i * 0.15}s`
                     document.getElementById("boxes").children[currentRow].children[i].classList.add("wrongSpot")
-                    setTimeout(() => document.querySelector(`[data-letter="${c}"]`).classList.add("wrongSpot"), 750)
+                    if(!document.querySelector(`[data-letter="${c}"]`).classList.contains("correctSpot")) {
+                    setTimeout(() => document.querySelector(`[data-letter="${c}"]`).classList.add("wrongSpot"), i * 150)
+                    }
                 }
             })
             //FINDER GRÅ BOGSTAVER
@@ -116,8 +121,9 @@ function enterClicked() {
                     console.log("letter:", c, "in word:", currentWord.includes(c))
                     document.getElementById("boxes").children[currentRow].children[i].classList.add("wrongLetter")
                     document.getElementById("boxes").children[currentRow].children[i].style.animationDelay = `${i * 0.15}s`
-                    if(!document.querySelector(`[data-letter="${c}"]`).classList.contains("correctSpot") && !document.querySelector(`[data-letter="${c}"]`).classList.contains("wrongSpot"))
-                    setTimeout( () => document.querySelector(`[data-letter="${c}"]`).classList.add("wrongLetter"), 750)
+                    if(!document.querySelector(`[data-letter="${c}"]`).classList.contains("correctSpot") && !document.querySelector(`[data-letter="${c}"]`).classList.contains("wrongSpot")) {
+                        setTimeout( () => document.querySelector(`[data-letter="${c}"]`).classList.add("wrongLetter"), i * 150)
+                    }
                 }
             })
 
@@ -127,6 +133,14 @@ function enterClicked() {
                 console.log("Word guessed!")
                 document.getElementById("boxes").children[currentRow].classList.add("win")
                 gameStarted = false
+                setTimeout(() => {
+                    document.getElementById("end-screen").style.display = "flex"
+                    //LAV GRAF OVER WINS OSV.
+                    //DEN SKAL TAGE CURRENTROW OG TILFØJE DEN TIL ET JSON OBJEKT MED WIN-STATS
+                    //DEREFTER KAN SØJLERNES HØJDE LAVES UD FRA TOTAL GAMES DIVIDERET MED ANTAL WINS AF HVER ANTAL GÆT
+                    //SØJLENS FULDE LÆNGE ER SÅ (WINS I KATEGORI / TOTAL WINS) * FULD SØJLELÆNGDE
+                }, 2500)
+                document.getElementById("end-title").textContent = "You guessed the word."
     
             }else if(guessedWord !== currentWord && currentRow < 5){
                 console.log(guessedWord,"wasnt the word")
