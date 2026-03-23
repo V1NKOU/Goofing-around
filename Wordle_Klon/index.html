@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="index.css">
 <head>
+    <link rel="stylesheet" href="index.css">
     <meta charset="UTF-8" />
     <title>Wordle</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +17,47 @@
         <div id="game-container" style="display: none;">
             <div id="end-screen" style="display: none;">
                 <h1 id="end-title">Placeholder Text</h1>
+                <div id="stats-container">
+                    <h1 id="stats-top-text">Statistics:</h1>
+                    <div id="stat-numbers">
+                        <div id="total-games-container">
+                            <div id="total-games-amount"></div>
+                            <div id="total-games-text"></div>
+                        </div>
+                        <div id="win-percentage-container">
+                            <div id="win-percentage-amount"></div>
+                            <div id="win-percentage-text"></div>
+                        </div>
+                    </div>
+                    <h2 id="guess-distribution">Guess distribution:</h2>
+                    <div id="stat-pillars">
+                        <div class="stat-pillar" id="1-guesses">
+                            <div class="guess-amount">1</div>
+                            <div class="pillar"></div>
+                        </div>
+                        <div class="stat-pillar" id="2-guesses">
+                            <div class="guess-amount">2</div>
+                            <div class="pillar"></div>
+                        </div>
+                        <div class="stat-pillar" id="3-guesses">
+                            <div class="guess-amount">3</div>
+                            <div class="pillar"></div>
+                        </div>
+                        <div class="stat-pillar" id="4-guesses">
+                            <div class="guess-amount">4</div>
+                            <div class="pillar"></div>
+                        </div>
+                        <div class="stat-pillar" id="5-guesses">
+                            <div class="guess-amount">5</div>
+                            <div class="pillar"></div>
+                        </div>
+                        <div class="stat-pillar" id="6-guesses">
+                            <div class="guess-amount">6</div>
+                            <div class="pillar"></div>
+                        </div>
+                    </div>
+                    <div id="stats-bot-text"></div>
+                </div>
             </div>
             <div id="title2" class="title">Wordle</div>
             <div id="game-notification" style="display: none;"></div>

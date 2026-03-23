@@ -9,10 +9,19 @@ var rowLetters = ["", "", "", "", ""]
 var acceptedLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var keyboardLayout = "QWERTYUIOPASDFGHJKLZXCVBNM"
 var gameStarted = false
+var stats
 
 function setup() {
     validGuesses = loadTable(validGuessesFile, 'csv', 'header', onGuessesLoaded)
     validSolutions = loadTable(validSolutionsFile, 'csv', 'header', onSolutionsLoaded)
+    stats = JSON.parse(window.localStorage.getItem("stats"))
+    if (!stats) {
+        stats = {
+            totalGames: 0,
+            totalWins: 0,
+            guessWins: [0, 0, 0, 0, 0, 0]
+        }
+    }
     select("#startBtn").mousePressed(function() {
         document.getElementById("intro").style.display = "none"
         document.getElementById("game-container").style.display = "flex"
@@ -118,7 +127,6 @@ function enterClicked() {
             //FINDER GRÅ BOGSTAVER
             rowLetters.map( (c,i) => {
                 if(!document.getElementById("boxes").children[currentRow].children[i].classList.contains("correctSpot") && !document.getElementById("boxes").children[currentRow].children[i].classList.contains("wrongSpot")){
-                    console.log("letter:", c, "in word:", currentWord.includes(c))
                     document.getElementById("boxes").children[currentRow].children[i].classList.add("wrongLetter")
                     document.getElementById("boxes").children[currentRow].children[i].style.animationDelay = `${i * 0.15}s`
                     if(!document.querySelector(`[data-letter="${c}"]`).classList.contains("correctSpot") && !document.querySelector(`[data-letter="${c}"]`).classList.contains("wrongSpot")) {
@@ -135,6 +143,12 @@ function enterClicked() {
                 gameStarted = false
                 setTimeout(() => {
                     document.getElementById("end-screen").style.display = "flex"
+                    stats.totalGames += 1
+                    stats.totalWins += 1
+                    stats.guessWins[currentRow] += 1
+                    console.log(stats.guessWins)
+                    window.localStorage.setItem("stats", JSON.stringify(stats))
+                    showWinStats()
                     //LAV GRAF OVER WINS OSV.
                     //DEN SKAL TAGE CURRENTROW OG TILFØJE DEN TIL ET JSON OBJEKT MED WIN-STATS
                     //DEREFTER KAN SØJLERNES HØJDE LAVES UD FRA TOTAL GAMES DIVIDERET MED ANTAL WINS AF HVER ANTAL GÆT
@@ -152,4 +166,19 @@ function enterClicked() {
         }else{
             console.log("Not in words list")
         }
+}
+
+function showWinStats() { 
+    Array.from(document.getElementById("stat-pillars").children).map((p, i) => {
+        var wins = stats.guessWins[i]
+        console.log(p)
+        console.log(p.querySelector(".pillar"))
+        console.log(stats)
+        console.log(stats.guessWins)
+        p.querySelector(".pillar").style.width = `${stats.guessWins[i]/stats.totalWins*24+"vw"}` 
+        if (stats.guessWins[i] > 0) {
+            p.querySelector(".pillar").textContent = `${stats.guessWins[i]}`
+        }
+        
+    })
 }
