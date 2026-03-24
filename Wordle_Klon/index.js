@@ -22,10 +22,13 @@ function setup() {
             guessWins: [0, 0, 0, 0, 0, 0]
         }
     }
-    select("#startBtn").mousePressed(function() {
+    document.getElementById("startBtn").addEventListener("click", () => {
         document.getElementById("intro").style.display = "none"
         document.getElementById("game-container").style.display = "flex"
         gameStarted = true
+    })
+    document.getElementById("restartBtn").addEventListener("click", () => {
+        restartGame()
     })
     Array.from(document.getElementsByClassName("letBox")).map( (e,i)=> {
         e.setAttribute("data-letter", keyboardLayout[i])
@@ -139,20 +142,15 @@ function enterClicked() {
 
             if(guessedWord == currentWord) {
                 console.log("Word guessed!")
-                document.getElementById("boxes").children[currentRow].classList.add("win")
                 gameStarted = false
+                stats.totalGames += 1
+                stats.totalWins += 1
+                stats.guessWins[currentRow] += 1
+                console.log(stats.guessWins)
+                window.localStorage.setItem("stats", JSON.stringify(stats))
+                showWinStats()
                 setTimeout(() => {
                     document.getElementById("end-screen").style.display = "flex"
-                    stats.totalGames += 1
-                    stats.totalWins += 1
-                    stats.guessWins[currentRow] += 1
-                    console.log(stats.guessWins)
-                    window.localStorage.setItem("stats", JSON.stringify(stats))
-                    showWinStats()
-                    //LAV GRAF OVER WINS OSV.
-                    //DEN SKAL TAGE CURRENTROW OG TILFØJE DEN TIL ET JSON OBJEKT MED WIN-STATS
-                    //DEREFTER KAN SØJLERNES HØJDE LAVES UD FRA TOTAL GAMES DIVIDERET MED ANTAL WINS AF HVER ANTAL GÆT
-                    //SØJLENS FULDE LÆNGE ER SÅ (WINS I KATEGORI / TOTAL WINS) * FULD SØJLELÆNGDE
                 }, 2500)
                 document.getElementById("end-title").textContent = "You guessed the word."
     
@@ -162,6 +160,12 @@ function enterClicked() {
                 rowLetters = ["", "", "", "", ""]
             }else{
                 console.log("Too bad loser, the word was ",currentWord)
+                stats.totalGames += 1
+                window.localStorage.setItem("stats", JSON.stringify(stats))
+                setTimeout(() => {
+                    document.getElementById("end-screen").style.display = "flex"
+                    showWinStats()
+                }, 2500)
             }
         }else{
             console.log("Not in words list")
@@ -170,15 +174,31 @@ function enterClicked() {
 
 function showWinStats() { 
     Array.from(document.getElementById("stat-pillars").children).map((p, i) => {
-        var wins = stats.guessWins[i]
-        console.log(p)
-        console.log(p.querySelector(".pillar"))
-        console.log(stats)
-        console.log(stats.guessWins)
-        p.querySelector(".pillar").style.width = `${stats.guessWins[i]/stats.totalWins*24+"vw"}` 
+        p.querySelector(".pillar").style.width = stats.guessWins[i]/stats.totalWins*24+"vw"
         if (stats.guessWins[i] > 0) {
-            p.querySelector(".pillar").textContent = `${stats.guessWins[i]}`
+            p.querySelector(".pillar").textContent = stats.guessWins[i]
         }
         
     })
+    document.getElementById("total-games-amount").textContent = stats.totalGames
+    document.getElementById("win-percentage-amount").textContent = (stats.totalWins/stats.totalGames*100).toFixed(2)
+}
+
+function restartGame() {
+    gameStarted = true
+    currentBox = 0
+    currentRow = 0
+    rowLetters = ["", "", "", "", ""]
+    document.getElementById("end-screen").style.display = "none"
+    Array.from(document.getElementsByClassName("box")).forEach( (e) => {
+        e.classList.remove("correctSpot", "wrongSpot", "wrongLetter", "typed")
+        e.textContent = ""
+        e.style.animationDelay = "0s"
+
+    })
+    Array.from(document.getElementsByClassName("letBox")).forEach( (e) => {
+        e.classList.remove("correctSpot", "wrongSpot", "wrongLetter")
+    })
+    currentWord = validSolutions[Math.floor(Math.random()*validSolutions.length)]
+    console.log("Correct Word: ",currentWord)
 }

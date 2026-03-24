@@ -21,7 +21,7 @@ main {
 
 #underTitle {
     text-align: center;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-family: Lexend;
     margin: 0px;
     margin-top: -10vh;  
@@ -32,8 +32,8 @@ button {
     margin-top: 5vh;
     display: flex;
     justify-self: center;
-    border: 1px solid #dfdfdf;
-    background-color: #ededed;
+    border: 2px solid #000000;
+    background-color: #ffffff;
     padding-left: 2vw;
     padding-right: 2vw;
     padding-top: 1vh;
@@ -46,8 +46,11 @@ button {
 }
 button:hover {
     transform: translateY(-3px);
-    box-shadow: 2px 2px rgb(69, 69, 69);
+    box-shadow: 1px 2px rgb(69, 69, 69);
     cursor: pointer;
+    border-color: rgb(64, 138, 15);
+    background-color: rgb(87, 194, 16);
+    color: rgb(255, 255, 255);
 }
 
 #title2 {
@@ -92,48 +95,83 @@ button:hover {
 
 #stats-top-text {
     font-family: Lexend;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     margin-top: 0;
     text-align: center;
 }
 #stats-container {
     display: flex;
-    height: 40vh;
-    justify-content: center;
-    width: 30vw;
+    height: 50vh;
+    width: 40vw;
     background-color: white;
     border: 2px solid lightgray;
     flex-direction: column;
     font-family: Lexend;
     padding: 10px;
+    border-radius: 20px;
+    margin-top: 5vh;
 }
 #guess-distribution {
-    font-size: 1rem;
+    font-size: 1.4rem;
+    margin-left: 2vw;
+
+}
+#stat-numbers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+#stat-numbers > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.stat-value-number {
+    font-size: 3rem;
+    transition: 0.3s;
+    user-select: none;
+}
+.stat-value-number:hover {
+    text-shadow: 0px 0px 10px rgb(119, 119, 119);
 }
 
 #stat-pillars {
-    
+    margin-left: 2vw;
 }
 .stat-pillar {
-    height: 20px;
+    height: 3vh;
     margin-bottom: 5px;
     display: flex;
     margin-left: 0.5vw;
 }
 .pillar {
+    display: flex;
+    justify-content: flex-end;
+    line-height: 3.2vh;
     background-color: rgb(80, 48, 219);
     width:24vw;
-    min-width: 1.5vw;
     height: 100%;
+    min-width: 1vw;
     border-radius: 5px;
     color: white;
-    text-align: right;
     padding-right: 5px;
     box-sizing: border-box;
     margin-left:0.5vw;
-    
-    
-    
+    pointer-events: auto;
+    transition: 0.3s;
+}
+.pillar:hover {
+
+    box-shadow: 0px 0px 7px rgb(89, 75, 163);
+}
+.guess-amount {
+    font-size: 1.5rem;
+    line-height: 1.65rem;
+}
+
+#restartBtn {
+    margin-top: -4vh;
+    border-color: #838383;
 }
 
 
@@ -167,11 +205,8 @@ button:hover {
     grid-template-rows: 1fr 1fr 1fr;
     justify-content: center;
 }
-#letRow1 {
-    display: flex;
-    justify-content: center;
-}
-#letRow2, #letRow3 {
+
+#letRow1, #letRow2, #letRow3 {
     display: flex;
     justify-content: center;
 }
@@ -187,7 +222,7 @@ button:hover {
     0% {transform: scale(1) rotate(0deg); background-color:#ededed; color: rgb(69, 69, 69);}
     33% {transform: scale(1.05) rotate(5deg);}
     66% {transform: scale(1.05) rotate(-5deg);}
-    100% {transform: scale(1) rotate(0deg); background-color:rgb(210, 197, 16); color: white;}
+    100% {transform: scale(1) rotate(0deg); background-color:rgb(224, 210, 10); color: white;}
 }
 @keyframes green {
     0% {transform: scale(1) rotate(0deg); background-color:#ededed; color: rgb(69, 69, 69);}
@@ -283,7 +318,7 @@ button:hover {
     background-color: rgb(86, 160, 86);
 }
 .letBox.wrongSpot {
-    background-color:rgb(210, 197, 16);
+    background-color:rgb(224, 210, 10);
 }
 .letBox.wrongLetter {
     background-color: rgb(130, 130, 130);
