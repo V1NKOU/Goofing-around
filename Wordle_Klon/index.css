@@ -48,7 +48,7 @@ button:hover {
     transform: translateY(-3px);
     box-shadow: 1px 2px rgb(69, 69, 69);
     cursor: pointer;
-    border-color: rgb(64, 138, 15);
+    border: 2px solid rgb(64, 138, 15);
     background-color: rgb(87, 194, 16);
     color: rgb(255, 255, 255);
 }
@@ -101,7 +101,7 @@ button:hover {
 }
 #stats-container {
     display: flex;
-    height: 50vh;
+    height: fit-content;
     width: 40vw;
     background-color: white;
     border: 2px solid lightgray;
@@ -110,6 +110,7 @@ button:hover {
     padding: 10px;
     border-radius: 20px;
     margin-top: 5vh;
+    
 }
 #guess-distribution {
     font-size: 1.4rem;

@@ -152,7 +152,7 @@ function enterClicked() {
                 setTimeout(() => {
                     document.getElementById("end-screen").style.display = "flex"
                 }, 2500)
-                document.getElementById("end-title").textContent = "You guessed the word."
+                document.getElementById("end-title").textContent = "You guessed the word!"
     
             }else if(guessedWord !== currentWord && currentRow < 5){
                 console.log(guessedWord,"wasnt the word")
@@ -164,6 +164,7 @@ function enterClicked() {
                 window.localStorage.setItem("stats", JSON.stringify(stats))
                 setTimeout(() => {
                     document.getElementById("end-screen").style.display = "flex"
+                    document.getElementById("end-title").textContent = "You didn't guess the word."
                     showWinStats()
                 }, 2500)
             }
