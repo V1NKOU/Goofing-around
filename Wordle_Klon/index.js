@@ -151,6 +151,7 @@ function enterClicked() {
                 showWinStats()
                 setTimeout(() => {
                     document.getElementById("end-screen").style.display = "flex"
+
                 }, 2500)
                 document.getElementById("end-title").textContent = "You guessed the word!"
     
@@ -165,6 +166,7 @@ function enterClicked() {
                 setTimeout(() => {
                     document.getElementById("end-screen").style.display = "flex"
                     document.getElementById("end-title").textContent = "You didn't guess the word."
+                    document.getElementById("end-sub-title").textContent = "The word was: " + currentWord
                     showWinStats()
                 }, 2500)
             }
@@ -175,17 +177,18 @@ function enterClicked() {
 
 function showWinStats() { 
     Array.from(document.getElementById("stat-pillars").children).map((p, i) => {
-        p.querySelector(".pillar").style.width = stats.guessWins[i]/stats.totalWins*24+"vw"
+        p.querySelector(".pillar").style.width = Math.pow(stats.guessWins[i]/stats.totalWins, 0.7)*24+"vw"
         if (stats.guessWins[i] > 0) {
             p.querySelector(".pillar").textContent = stats.guessWins[i]
         }
         
     })
     document.getElementById("total-games-amount").textContent = stats.totalGames
-    document.getElementById("win-percentage-amount").textContent = (stats.totalWins/stats.totalGames*100).toFixed(2)
+    document.getElementById("win-percentage-amount").textContent = Math.round(stats.totalWins/stats.totalGames*100)+"%"
 }
 
 function restartGame() {
+    document.getElementById("end-sub-title").textContent = ""
     gameStarted = true
     currentBox = 0
     currentRow = 0

@@ -17,6 +17,7 @@
         <div id="game-container" style="display: none;">
             <div id="end-screen" style="display: none;">
                 <h1 id="end-title">Placeholder Text</h1>
+                <h2 id="end-sub-title"></h2>
                 <div id="stats-container">
                     <h1 id="stats-top-text">Statistics:</h1>
                     <div id="stat-numbers">
@@ -26,7 +27,7 @@
                         </div>
                         <div id="win-percentage-container">
                             <div id="win-percentage-amount" class="stat-value-number"></div>
-                            <div id="win-percentage-text" class="stat-value-text">Win %</div>
+                            <div id="win-percentage-text" class="stat-value-text">Win rate</div>
                         </div>
                     </div>
                     <h2 id="guess-distribution">Guess distribution:</h2>
@@ -58,9 +59,11 @@
                     </div>
                     <div id="stats-bot-text"></div>
                 </div>
-                <button id="restartBtn">Play Again?</button>
+                <div id="button-wrapper">
+                    <button id="restartBtn">Play Again?</button>
+                </div>
             </div>
-            <div id="title2" class="title">Wordle</div>
+            <h1 id="title2" class="title">Wordle</h1>
             <div id="game-notification" style="display: none;"></div>
             <div id="boxes">
                 <div class="row" id="row1">
