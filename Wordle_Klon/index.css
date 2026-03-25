@@ -1,3 +1,5 @@
+
+
 html {
     overflow: hidden;
 }
@@ -63,17 +65,19 @@ button:hover {
     font-weight: 600;
 }
 
-#game-notification {
-    position: absolute;
-    background-color: white;
-    border-radius: 25px;
-    border: 2px solid #dfdfdf;
-    height:160px;
-    width: 300px;
+#game-notification-container {
+    position:absolute;
+    top: 15%;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
+    transform: translate(-50%,-50%);
+    z-index: 1000;
+}
+.notification {
+    position: relative;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 1.5rem;
+    animation: notificationFloat 1500ms forwards cubic-bezier(1,.44,.83,.67);
 }
 
 #end-screen {
@@ -269,6 +273,12 @@ button:hover {
     0% {transform: translateY(20vh); opacity: 0%;}
     100% {transform: translateY(0px); opacity: 100%;}
 }
+
+@keyframes notificationFloat {
+    0% {opacity: 100%; transform: translateY(30px);}
+    50% { opacity: 100%;}
+    100% {opacity: 0; display: none;}
+}
 .box {  
     border: 1px solid #dfdfdf;
     background-color: #ededed;
@@ -327,6 +337,7 @@ button:hover {
 
 #backspace {
     font-size: 2.7rem;
+    
 }
 
 .letBox:active, .wideBox:active {
@@ -367,4 +378,46 @@ button:hover {
 }
 .box.wrongLetter {
     animation: grey 0.2s ease-in-out forwards;
+}
+
+@media (max-width: 600px) {
+    body, html {
+        overflow-x: hidden;
+    }
+    .box {
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
+        line-height: 44px;
+        margin: 2px;
+    }
+
+    .letBox {
+        width: 30px;
+        height: 40px;
+        font-size: 0.9rem;
+        line-height: 40px;
+        margin: 2px;
+    }
+
+    .wideBox {
+        width: 50px;
+        height: 40px;
+        font-size: 0.7rem;
+        line-height: 40px;
+        margin: 2px;
+    }
+
+    #backspaceIcon {
+        height: 32px;
+        width: 20px;
+    }
+
+    #stats-container {
+        width: 85vw;
+    }
+
+    .pillar {
+        width: 55vw;
+    }
 }

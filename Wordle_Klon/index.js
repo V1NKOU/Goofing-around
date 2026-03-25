@@ -146,7 +146,6 @@ function enterClicked() {
                 stats.totalGames += 1
                 stats.totalWins += 1
                 stats.guessWins[currentRow] += 1
-                console.log(stats.guessWins)
                 window.localStorage.setItem("stats", JSON.stringify(stats))
                 showWinStats()
                 setTimeout(() => {
@@ -172,12 +171,19 @@ function enterClicked() {
             }
         }else{
             console.log("Not in words list")
+            const notFoundNotification = document.createElement("h2")
+            notFoundNotification.classList.add("notification")
+            notFoundNotification.textContent = "Not in words list"
+            if(document.getElementById("game-notification-container").hasChildNodes()) {
+                document.getElementById("game-notification-container").innerHTML = ""
+            }
+            document.getElementById("game-notification-container").appendChild(notFoundNotification)
         }
 }
 
 function showWinStats() { 
     Array.from(document.getElementById("stat-pillars").children).map((p, i) => {
-        p.querySelector(".pillar").style.width = Math.pow(stats.guessWins[i]/stats.totalWins, 0.8)*24+"vw"
+        p.querySelector(".pillar").style.width = Math.pow(stats.guessWins[i]/stats.totalWins, 0.7)*24+"vw"
         if (stats.guessWins[i] > 0) {
             p.querySelector(".pillar").textContent = stats.guessWins[i]
         }
@@ -204,5 +210,6 @@ function restartGame() {
         e.classList.remove("correctSpot", "wrongSpot", "wrongLetter")
     })
     currentWord = validSolutions[Math.floor(Math.random()*validSolutions.length)]
+    console.clear()
     console.log("Correct Word: ",currentWord)
 }
