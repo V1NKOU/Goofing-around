@@ -177,7 +177,7 @@ function enterClicked() {
 
 function showWinStats() { 
     Array.from(document.getElementById("stat-pillars").children).map((p, i) => {
-        p.querySelector(".pillar").style.width = Math.pow(stats.guessWins[i]/stats.totalWins, 0.7)*24+"vw"
+        p.querySelector(".pillar").style.width = Math.pow(stats.guessWins[i]/stats.totalWins, 0.8)*24+"vw"
         if (stats.guessWins[i] > 0) {
             p.querySelector(".pillar").textContent = stats.guessWins[i]
         }
