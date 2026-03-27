@@ -232,6 +232,9 @@ button:hover {
     padding: 15px;
     color: white;
 }
+.sub-setting:hover {
+    cursor: pointer;
+}
 
 #settings-arrow {
     padding: 15px;
