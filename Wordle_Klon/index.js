@@ -10,6 +10,7 @@ var acceptedLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var keyboardLayout = "QWERTYUIOPASDFGHJKLZXCVBNM"
 var gameStarted = false
 var stats
+var isHovered = true
 
 function setup() {
     validGuesses = loadTable(validGuessesFile, 'csv', 'header', onGuessesLoaded)
@@ -34,6 +35,23 @@ function setup() {
         e.setAttribute("data-letter", keyboardLayout[i])
         e.setAttribute("onclick",`boxClicked("${keyboardLayout[i]}")`)
         e.textContent = keyboardLayout[i]
+    })
+    document.getElementById("settings").addEventListener("pointerover", () => {
+        document.getElementById("settings-arrow").classList.add("arrow-hover")
+        document.getElementById("settings").classList.add("settings-hover")
+        isHovered = true
+        Array.from(document.getElementById("settings").children).slice(1).forEach(e => {
+            e.style.display = "flex"
+        })
+    })
+    document.getElementById("settings").addEventListener("pointerleave", () => {
+        isHovered = false
+        document.getElementById("settings-arrow").classList.add("arrow-hover")
+        document.getElementById("settings").classList.remove("settings-hover")
+        document.getElementById("settings-arrow").classList.remove("arrow-hover")
+        Array.from(document.getElementById("settings").children).slice(1).forEach( (e,i) => {
+            setTimeout( () => {if(!isHovered) e.style.display = "none"}, (Array.from(document.getElementById("settings").children).slice(1).length-1-i)*100)
+        })
     })
 }
 
@@ -213,3 +231,4 @@ function restartGame() {
     console.clear()
     console.log("Correct Word: ",currentWord)
 }
+

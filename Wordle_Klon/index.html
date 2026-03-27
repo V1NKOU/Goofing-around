@@ -12,142 +12,148 @@
 </head>
 <body>
     <div id="intro">
-    <h1 id="title1" class="title">Wordle</h1>
-    <h2 id="underTitle">Et 100% originalt spil lavet af mig</h2>
-    <button id="startBtn">Start</button>
+        <h1 id="title1" class="title">Wordle</h1>
+        <h2 id="underTitle">Et 100% originalt spil lavet af mig</h2>
+        <button id="startBtn">Start</button>
     </div>
-        <div id="game-container" style="display: none;">
-            <div id="end-screen" style="display: none;">
-                <h1 id="end-title">Placeholder Text</h1>
-                <h2 id="end-sub-title"></h2>
-                <div id="stats-container">
-                    <h1 id="stats-top-text">Statistics:</h1>
-                    <div id="stat-numbers">
-                        <div id="total-games-container">
-                            <div id="total-games-amount" class="stat-value-number"></div>
-                            <div id="total-games-text" class="stat-value-text">Played</div>
-                        </div>
-                        <div id="win-percentage-container">
-                            <div id="win-percentage-amount" class="stat-value-number"></div>
-                            <div id="win-percentage-text" class="stat-value-text">Win rate</div>
-                        </div>
+    <div id="settings">
+        <div id="settings-arrow"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg></div>
+        <div id="element1" class="sub-setting" style="display: none;">1</div>
+        <div id="element2" class="sub-setting" style="display: none;">2</div>
+        <div id="element3" class="sub-setting" style="display: none;">3</div>
+    </div>
+    <div id="game-container" style="display: none;">
+        <div id="end-screen" style="display: none;">
+            <h1 id="end-title">Placeholder Text</h1>
+            <h2 id="end-sub-title"></h2>
+            <div id="stats-container">
+                <h1 id="stats-top-text">Statistics:</h1>
+                <div id="stat-numbers">
+                    <div id="total-games-container">
+                        <div id="total-games-amount" class="stat-value-number"></div>
+                        <div id="total-games-text" class="stat-value-text">Played</div>
                     </div>
-                    <h2 id="guess-distribution">Guess distribution:</h2>
-                    <div id="stat-pillars">
-                        <div class="stat-pillar" id="1-guesses">
-                            <div class="guess-amount">1</div>
-                            <div class="pillar"></div>
-                        </div>
-                        <div class="stat-pillar" id="2-guesses">
-                            <div class="guess-amount">2</div>
-                            <div class="pillar"></div>
-                        </div>
-                        <div class="stat-pillar" id="3-guesses">
-                            <div class="guess-amount">3</div>
-                            <div class="pillar"></div>
-                        </div>
-                        <div class="stat-pillar" id="4-guesses">
-                            <div class="guess-amount">4</div>
-                            <div class="pillar"></div>
-                        </div>
-                        <div class="stat-pillar" id="5-guesses">
-                            <div class="guess-amount">5</div>
-                            <div class="pillar"></div>
-                        </div>
-                        <div class="stat-pillar" id="6-guesses">
-                            <div class="guess-amount">6</div>
-                            <div class="pillar"></div>
-                        </div>
+                    <div id="win-percentage-container">
+                        <div id="win-percentage-amount" class="stat-value-number"></div>
+                        <div id="win-percentage-text" class="stat-value-text">Win rate</div>
                     </div>
-                    <div id="stats-bot-text"></div>
                 </div>
-                <div id="button-wrapper">
-                    <button id="restartBtn">Play Again?</button>
+                <h2 id="guess-distribution">Guess distribution:</h2>
+                <div id="stat-pillars">
+                    <div class="stat-pillar" id="1-guesses">
+                        <div class="guess-amount">1</div>
+                        <div class="pillar"></div>
+                    </div>
+                    <div class="stat-pillar" id="2-guesses">
+                        <div class="guess-amount">2</div>
+                        <div class="pillar"></div>
+                    </div>
+                    <div class="stat-pillar" id="3-guesses">
+                        <div class="guess-amount">3</div>
+                        <div class="pillar"></div>
+                    </div>
+                    <div class="stat-pillar" id="4-guesses">
+                        <div class="guess-amount">4</div>
+                        <div class="pillar"></div>
+                    </div>
+                    <div class="stat-pillar" id="5-guesses">
+                        <div class="guess-amount">5</div>
+                        <div class="pillar"></div>
+                    </div>
+                    <div class="stat-pillar" id="6-guesses">
+                        <div class="guess-amount">6</div>
+                        <div class="pillar"></div>
+                    </div>
                 </div>
+                <div id="stats-bot-text"></div>
             </div>
-            <h1 id="title2" class="title">Wordle</h1>
-            <h1 id="game-notification-container" style="display: flex;"></h1>
-            <div id="boxes">
-                <div class="row" id="row1">
-                    <div class="column box" id="box1"></div>
-                    <div class="column box" id="box2"></div>
-                    <div class="column box" id="box3"></div>
-                    <div class="column box" id="box4"></div>
-                    <div class="column box" id="box5"></div>
-                </div>
-                <div class="row" id="row2">
-                    <div class="column box" id="box6"></div>
-                    <div class="column box" id="box7"></div>
-                    <div class="column box" id="box8"></div>
-                    <div class="column box" id="box9"></div>
-                    <div class="column box" id="box10"></div>
-                </div>
-                <div class="row" id="row3">
-                    <div class="column box" id="box11"></div>
-                    <div class="column box" id="box12"></div>
-                    <div class="column box" id="box13"></div>
-                    <div class="column box" id="box14"></div>
-                    <div class="column box" id="box15"></div>
-                </div>
-                <div class="row" id="row4">
-                    <div class="column box" id="box16"></div>
-                    <div class="column box" id="box17"></div>
-                    <div class="column box" id="box18"></div>
-                    <div class="column box" id="box19"></div>
-                    <div class="column box" id="box20"></div>
-                </div>
-                <div class="row" id="row5">
-                    <div class="column box" id="box21"></div>
-                    <div class="column box" id="box22"></div>
-                    <div class="column box" id="box23"></div>
-                    <div class="column box" id="box24"></div>
-                    <div class="column box" id="box25"></div>
-                </div>
-                <div class="row" id="row6">
-                    <div class="column box" id="box26"></div>
-                    <div class="column box" id="box27"></div>
-                    <div class="column box" id="box28"></div>
-                    <div class="column box" id="box29"></div>
-                    <div class="column box" id="box30"></div>
-                </div>
-            </div>
-            <div id="letters">
-                <div class="letRow" id="letRow1">
-                    <div class="letBox" id="letBox1"></div>
-                    <div class="letBox" id="letBox2"></div>
-                    <div class="letBox" id="letBox3"></div>
-                    <div class="letBox" id="letBox4"></div>
-                    <div class="letBox" id="letBox5"></div>
-                    <div class="letBox" id="letBox6"></div>
-                    <div class="letBox" id="letBox7"></div>
-                    <div class="letBox" id="letBox8"></div>
-                    <div class="letBox" id="letBox9"></div>
-                    <div class="letBox" id="letBox10"></div>
-                </div>
-                <div class="letRow" id="letRow2">
-                    <div class="letBox" id="letBox11"></div>
-                    <div class="letBox" id="letBox12"></div>
-                    <div class="letBox" id="letBox13"></div>
-                    <div class="letBox" id="letBox14"></div>
-                    <div class="letBox" id="letBox15"></div>
-                    <div class="letBox" id="letBox16"></div>
-                    <div class="letBox" id="letBox17"></div>
-                    <div class="letBox" id="letBox18"></div>
-                    <div class="letBox" id="letBox19"></div>
-                </div>
-                <div class="letRow" id="letRow3">
-                    <div class="wideBox" id="enter" onclick="enterClicked()">Enter</div>
-                    <div class="letBox" id="letBox20"></div>
-                    <div class="letBox" id="letBox21"></div>
-                    <div class="letBox" id="letBox22"></div>
-                    <div class="letBox" id="letBox23"></div>
-                    <div class="letBox" id="letBox24"></div>
-                    <div class="letBox" id="letBox25"></div>
-                    <div class="letBox" id="letBox26"></div>
-                    <div class="wideBox" id="backspace" onclick="backspaceClicked()"><svg id="backspaceIcon"xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m456-320 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 160q-19 0-36-8.5T296-192L80-480l216-288q11-15 28-23.5t36-8.5h440q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H360ZM180-480l180 240h440v-480H360L180-480Zm400 0Z"/></svg></div>
-                </div>
+            <div id="button-wrapper">
+                <button id="restartBtn">Play Again?</button>
             </div>
         </div>
+        <h1 id="title2" class="title">Wordle</h1>
+        <h1 id="game-notification-container" style="display: flex;"></h1>
+        <div id="boxes">
+            <div class="row" id="row1">
+                <div class="column box" id="box1"></div>
+                <div class="column box" id="box2"></div>
+                <div class="column box" id="box3"></div>
+                <div class="column box" id="box4"></div>
+                <div class="column box" id="box5"></div>
+            </div>
+            <div class="row" id="row2">
+                <div class="column box" id="box6"></div>
+                <div class="column box" id="box7"></div>
+                <div class="column box" id="box8"></div>
+                <div class="column box" id="box9"></div>
+                <div class="column box" id="box10"></div>
+            </div>
+            <div class="row" id="row3">
+                <div class="column box" id="box11"></div>
+                <div class="column box" id="box12"></div>
+                <div class="column box" id="box13"></div>
+                <div class="column box" id="box14"></div>
+                <div class="column box" id="box15"></div>
+            </div>
+            <div class="row" id="row4">
+                <div class="column box" id="box16"></div>
+                <div class="column box" id="box17"></div>
+                <div class="column box" id="box18"></div>
+                <div class="column box" id="box19"></div>
+                <div class="column box" id="box20"></div>
+            </div>
+            <div class="row" id="row5">
+                <div class="column box" id="box21"></div>
+                <div class="column box" id="box22"></div>
+                <div class="column box" id="box23"></div>
+                <div class="column box" id="box24"></div>
+                <div class="column box" id="box25"></div>
+            </div>
+            <div class="row" id="row6">
+                <div class="column box" id="box26"></div>
+                <div class="column box" id="box27"></div>
+                <div class="column box" id="box28"></div>
+                <div class="column box" id="box29"></div>
+                <div class="column box" id="box30"></div>
+            </div>
+        </div>
+        <div id="letters">
+            <div class="letRow" id="letRow1">
+                <div class="letBox" id="letBox1"></div>
+                <div class="letBox" id="letBox2"></div>
+                <div class="letBox" id="letBox3"></div>
+                <div class="letBox" id="letBox4"></div>
+                <div class="letBox" id="letBox5"></div>
+                <div class="letBox" id="letBox6"></div>
+                <div class="letBox" id="letBox7"></div>
+                <div class="letBox" id="letBox8"></div>
+                <div class="letBox" id="letBox9"></div>
+                <div class="letBox" id="letBox10"></div>
+            </div>
+            <div class="letRow" id="letRow2">
+                <div class="letBox" id="letBox11"></div>
+                <div class="letBox" id="letBox12"></div>
+                <div class="letBox" id="letBox13"></div>
+                <div class="letBox" id="letBox14"></div>
+                <div class="letBox" id="letBox15"></div>
+                <div class="letBox" id="letBox16"></div>
+                <div class="letBox" id="letBox17"></div>
+                <div class="letBox" id="letBox18"></div>
+                <div class="letBox" id="letBox19"></div>
+            </div>
+            <div class="letRow" id="letRow3">
+                <div class="wideBox" id="enter" onclick="enterClicked()">Enter</div>
+                <div class="letBox" id="letBox20"></div>
+                <div class="letBox" id="letBox21"></div>
+                <div class="letBox" id="letBox22"></div>
+                <div class="letBox" id="letBox23"></div>
+                <div class="letBox" id="letBox24"></div>
+                <div class="letBox" id="letBox25"></div>
+                <div class="letBox" id="letBox26"></div>
+                <div class="wideBox" id="backspace" onclick="backspaceClicked()"><svg id="backspaceIcon"xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m456-320 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 160q-19 0-36-8.5T296-192L80-480l216-288q11-15 28-23.5t36-8.5h440q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H360ZM180-480l180 240h440v-480H360L180-480Zm400 0Z"/></svg></div>
+            </div>
+        </div>
+    </div>
 
     <script src="index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
