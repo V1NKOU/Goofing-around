@@ -38,7 +38,7 @@ function setup() {
     })
     document.getElementById("settings").addEventListener("pointerover", () => {
         document.getElementById("settings-arrow").classList.add("arrow-hover")
-        document.getElementById("settings").classList.add("settings-hover")
+        document.getElementById("settings").style.height = document.getElementById("settings").children.length * 57 + "px"
         isHovered = true
         Array.from(document.getElementById("settings").children).slice(1).forEach(e => {
             e.style.display = "flex"
@@ -47,11 +47,14 @@ function setup() {
     document.getElementById("settings").addEventListener("pointerleave", () => {
         isHovered = false
         document.getElementById("settings-arrow").classList.add("arrow-hover")
-        document.getElementById("settings").classList.remove("settings-hover")
+        document.getElementById("settings").style.height = 50 + "px"
         document.getElementById("settings-arrow").classList.remove("arrow-hover")
         Array.from(document.getElementById("settings").children).slice(1).forEach( (e,i) => {
-            setTimeout( () => {if(!isHovered) e.style.display = "none"}, (Array.from(document.getElementById("settings").children).slice(1).length-1-i)*100)
+            setTimeout( () => {if(!isHovered) e.style.display = "none"}, (Array.from(document.getElementById("settings").children).slice(1).length-1-i)*100+50)
         })
+    })
+    Array.from(document.getElementById("settings").children).splice(1).forEach((e,i) => {
+        e.addEventListener("click",() => elementSelect(i))
     })
 }
 
@@ -81,9 +84,13 @@ function keyPressed() {
             select(`#box${currentBox + 1}`).html(key.toUpperCase())
             document.getElementById("boxes").children[currentRow].children[currentBox-5*currentRow].classList.add("typed")
             currentBox += 1
+            showPossibleWords()
 
         }else if(keyCode === BACKSPACE && currentBox > 5*currentRow) {
             backspaceClicked()
+            if(currentBox >= 1+5*currentRow) {
+                showPossibleWords()
+            }
 
         }else if(keyCode === ENTER && currentBox == 5+5*currentRow ) {
             enterClicked()
@@ -232,3 +239,49 @@ function restartGame() {
     console.log("Correct Word: ",currentWord)
 }
 
+function elementSelect(i) {
+    i = i+= 1
+    console.log(i)
+    if(document.getElementById("settings").children[i].classList.contains("element-selected")) {
+        document.getElementById("settings").children[i].classList.remove("element-selected")
+        if(i==1) {
+            document.getElementById("search-menu").style.display = "none"
+            document.getElementById("search-menu").classList.remove("word-menu-shown")
+        }
+    }else{
+        document.getElementById("settings").children[i].classList.add("element-selected")
+        if(i==1) {
+            document.getElementById("search-menu").style.display = "flex"
+            document.getElementById("search-menu").classList.add("word-menu-shown")
+            
+            
+        }
+    }
+}
+
+//Hvert ord i valid solutions skal mappes og gøres til et array, hvorefter det kan tjekkes om bogstaverne ved hvert index den samme medmindre index af currentrow = ""
+function showPossibleWords() {
+    document.getElementById("word-container").innerHTML = ""
+    const existing = document.getElementById("word-amount")
+    if(existing) existing.remove()
+
+    const matches = validSolutions.filter(word => {
+        return rowLetters.every((letter, i) => {
+            if(letter == "") return true
+            return letter == word[i]
+        })
+    }) 
+
+    matches.forEach(word => {
+        const newWord = document.createElement("p")
+        newWord.textContent = word
+        newWord.classList.add("possible-word")
+        document.getElementById("word-container").appendChild(newWord)
+    })
+
+    const wordAmount = document.createElement("p")
+    wordAmount.id = "word-amount"
+    wordAmount.textContent = matches.length + " matches"
+    document.getElementById("search-header").appendChild(wordAmount)
+    console.log(wordAmount)
+}

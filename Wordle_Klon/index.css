@@ -6,6 +6,7 @@ html {
 body {
     background-color: white;
     margin: 0;
+    font-family: lexend;
 }
 main {
     height: 0;
@@ -221,16 +222,46 @@ button:hover {
     flex-direction: column;
     z-index: 1000;
     transition: 0.7s cubic-bezier(0.24, 1.3,0.64, 1);
+    user-select: none;
+    overflow: hidden;
 }
 
-.settings-hover {
-    height: 200px !important;
+.word-menu-shown {
+    animation: endAnimation 0.5s forwards;
 }
 
+#word-container {
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+    font-family: Lexend;
+    justify-items: center;
+    
+}
+
+#word-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+#word-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#word-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 5px;
+}
+
+#word-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255,255,255,0.3);
+}
 
 .sub-setting {
-    padding: 15px;
+    padding: 15px 8px;
+    margin-bottom: 5px;
     color: white;
+    transition: 0.3s;
 }
 .sub-setting:hover {
     cursor: pointer;
@@ -246,7 +277,50 @@ button:hover {
     transform: translateY(4px) rotate(180deg);
 }
 
+.element-selected {
+    background-color: rgb(59, 59, 59);
+    border-radius: 50px;
+}
+#search-menu-title {
+    font-size: 1.3rem;
+    padding-top: 10px;
+    margin: 0;
+}
 
+#search-header {
+    text-align: center;
+    border-bottom: 1px solid grey;
+}
+
+#word-amount {
+    font-size: 1rem;
+    margin: 0;
+}
+
+#search-menu {
+    z-index: 1000;
+    position: absolute;
+    display: flex;
+    top: 50px;
+    right: 50px;
+    background-color: #1f1f1f;
+    border: 2px solid grey;
+    color: whitesmoke;
+    border-radius: 10px;
+    height: 50px;
+    width: 25vw;
+    min-height: 50vh;
+    flex-direction: column;
+
+}
+
+.possible-word {
+    background-color: #303030;
+    height: fit-content;
+    width: fit-content;
+    padding: 1vh 0.6vw;
+    border-radius: 50px;
+}
 
 #game-container {
     display: flex;
@@ -319,6 +393,7 @@ button:hover {
     50% { opacity: 100%;}
     100% {opacity: 0; display: none;}
 }
+
 .box {  
     border: 1px solid #dfdfdf;
     background-color: #ededed;
