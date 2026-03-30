@@ -38,7 +38,7 @@ function setup() {
     })
     document.getElementById("settings").addEventListener("pointerover", () => {
         document.getElementById("settings-arrow").classList.add("arrow-hover")
-        document.getElementById("settings").style.height = document.getElementById("settings").children.length * 57 + "px"
+        document.getElementById("settings").style.height = document.getElementById("settings").children.length * 3.45 + "rem"
         isHovered = true
         Array.from(document.getElementById("settings").children).slice(1).forEach(e => {
             e.style.display = "flex"
@@ -47,7 +47,7 @@ function setup() {
     document.getElementById("settings").addEventListener("pointerleave", () => {
         isHovered = false
         document.getElementById("settings-arrow").classList.add("arrow-hover")
-        document.getElementById("settings").style.height = 50 + "px"
+        document.getElementById("settings").style.height = 3 + "rem"
         document.getElementById("settings-arrow").classList.remove("arrow-hover")
         Array.from(document.getElementById("settings").children).slice(1).forEach( (e,i) => {
             setTimeout( () => {if(!isHovered) e.style.display = "none"}, (Array.from(document.getElementById("settings").children).slice(1).length-1-i)*100+50)
@@ -116,6 +116,10 @@ function backspaceClicked() {
 
 function enterClicked() {
     var guessedWord = rowLetters.join("").toUpperCase()
+    document.getElementById("word-container").innerHTML = ""
+    const wordAmount = document.getElementById("word-amount")
+    if (wordAmount) document.getElementById("word-amount").innerHTML = "🤔 matches"
+    
         if(validGuesses.includes(guessedWord)) {
 
             //FINDER ANTAL BOGSTAVER
@@ -237,6 +241,11 @@ function restartGame() {
     currentWord = validSolutions[Math.floor(Math.random()*validSolutions.length)]
     console.clear()
     console.log("Correct Word: ",currentWord)
+    document.getElementById("word-container").innerHTML = ""
+    const wordAmount = document.getElementById("word-amount")
+    if (wordAmount) document.getElementById("word-amount").innerHTML = "🤔 matches"
+    document.getElementById("settings-stats").classList.remove("element-selected")
+    
 }
 
 function elementSelect(i) {
@@ -256,6 +265,9 @@ function elementSelect(i) {
             
             
         }
+    }
+    if(i == 3) {
+        toggleEndScreen()
     }
 }
 
@@ -284,4 +296,31 @@ function showPossibleWords() {
     wordAmount.textContent = matches.length + " matches"
     document.getElementById("search-header").appendChild(wordAmount)
     console.log(wordAmount)
+
+    document.getElementsByClassName("possible-word").forEach( (e) => {
+        e.addEventListener("click", () => {
+            currentBox = 0+5*currentRow
+            rowLetters = e.textContent.split("")
+            
+            rowLetters.forEach( (e,i) => {
+                document.getElementById("boxes").children[currentRow].children[currentBox-5*currentRow].textContent = e
+                console.log(i)
+                currentBox += 1
+            })
+            enterClicked()
+        })
+
+    })
+}
+
+function toggleEndScreen() {
+    if(document.getElementById("end-screen").style.display == "flex") {
+        document.getElementById("end-screen").style.display = "none"
+    } else {
+        document.getElementById("end-screen").style.display = "flex"
+        showWinStats()
+        document.getElementById("end-title").textContent = "Viewing stats"
+        document.getElementById("end-sub-title").textContent = "Return to game in settings"
+
+    }
 }
