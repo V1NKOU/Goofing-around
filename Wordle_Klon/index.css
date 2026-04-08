@@ -207,7 +207,7 @@ button:hover {
     width: 3rem;
     border-radius: 3rem;
     background-color: #1f1f1f;
-    border: 0.06rem solid black;
+    border: 0.06rem solid rgb(0, 0, 0);
     box-shadow: 0 0 0.3rem rgb(71, 71, 71);
     align-items: center;
     display: flex;
@@ -250,9 +250,19 @@ button:hover {
     margin-bottom: 0.3rem;
     color: white;
     transition: 0.3s;
+    border-radius: 50px;
 }
 .sub-setting:hover {
     cursor: pointer;
+    box-shadow: 0px 0px 0.2rem rgb(112, 112, 112);
+}
+
+.sub-setting svg {
+    transition: transform 0.2s ease-out;
+}
+
+.sub-setting:hover svg {
+    transform: scale(1.15);
 }
 
 #settings-arrow {
@@ -278,7 +288,8 @@ button:hover {
 
 #search-header {
     text-align: center;
-    border-bottom: 0.06rem solid grey;
+    border-bottom: 0.06rem solid rgb(87, 87, 87);
+    padding-bottom: 0.5rem;
 }
 
 #word-amount {
@@ -300,6 +311,7 @@ button:hover {
     width: 25vw;
     min-height: 50vh;
     flex-direction: column;
+    box-shadow: 0px 0px 0.5rem rgb(71, 71, 71);
 }
 
 .possible-word {
@@ -365,7 +377,7 @@ button:hover {
     0%   { transform: scale(1) rotate(0deg); background-color: #ededed; color: rgb(69,69,69); }
     33%  { transform: scale(1.05) rotate(5deg); }
     66%  { transform: scale(1.05) rotate(-5deg); }
-    100% { transform: scale(1) rotate(0deg); background-color: rgb(224,210,10); color: white; }
+    100% { transform: scale(1) rotate(0deg); background-color: rgb(245, 204, 20); color: white; }
 }
 @keyframes green {
     0%   { transform: scale(1) rotate(0deg); background-color: #ededed; color: rgb(69,69,69); }
@@ -462,7 +474,7 @@ button:hover {
     color: white;
 }
 .letBox.correctSpot  { background-color: rgb(86, 160, 86); }
-.letBox.wrongSpot    { background-color: rgb(224, 210, 10); }
+.letBox.wrongSpot    { background-color: rgb(245, 204, 20); }
 .letBox.wrongLetter  { background-color: rgb(130, 130, 130); }
 
 .typed {
