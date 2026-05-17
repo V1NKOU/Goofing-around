@@ -118,7 +118,7 @@ function enterClicked() {
     var guessedWord = rowLetters.join("").toUpperCase()
     document.getElementById("word-container").innerHTML = ""
     const wordAmount = document.getElementById("word-amount")
-    if (wordAmount) document.getElementById("word-amount").innerHTML = "🤔 matches"
+    if (wordAmount) document.getElementById("word-amount").innerHTML = "start typing to find matches"
     
         if(validGuesses.includes(guessedWord)) {
 
@@ -243,7 +243,7 @@ function restartGame() {
     console.log("Correct Word: ",currentWord)
     document.getElementById("word-container").innerHTML = ""
     const wordAmount = document.getElementById("word-amount")
-    if (wordAmount) document.getElementById("word-amount").innerHTML = "🤔 matches"
+    if (wordAmount) document.getElementById("word-amount").innerHTML = "start typing to find matches"
     document.getElementById("settings-stats").classList.remove("element-selected")
     
 }

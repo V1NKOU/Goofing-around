@@ -102,6 +102,7 @@ button:hover {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 1.2rem;
+    font-weight: 500;
 }
 
 #stats-top-text {
@@ -284,6 +285,7 @@ button:hover {
 #word-amount {
     font-size: 1rem;
     margin: 0;
+    margin-bottom: 0.4rem;
 }
 
 #search-menu {
@@ -294,6 +296,7 @@ button:hover {
     right: 3rem;
     background-color: #1f1f1f;
     border: 0.125rem solid grey;
+    box-shadow: 0 0 0.3rem rgb(71, 71, 71);
     color: whitesmoke;
     border-radius: 0.6rem;
     height: 3rem;
@@ -306,7 +309,7 @@ button:hover {
     background-color: #303030;
     height: fit-content;
     width: fit-content;
-    padding: 0.5rem 0.6rem;
+    padding: 0.5rem 0.5rem;
     border-radius: 3rem;
     border: 1px solid #454545;
     transition: scale 0.2s;
