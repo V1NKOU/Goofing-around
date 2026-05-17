@@ -45,13 +45,16 @@ function setup() {
         })
     })
     document.getElementById("settings").addEventListener("pointerleave", () => {
-        isHovered = false
-        document.getElementById("settings-arrow").classList.add("arrow-hover")
-        document.getElementById("settings").style.height = 3 + "rem"
-        document.getElementById("settings-arrow").classList.remove("arrow-hover")
-        Array.from(document.getElementById("settings").children).slice(1).forEach( (e,i) => {
-            setTimeout( () => {if(!isHovered) e.style.display = "none"}, (Array.from(document.getElementById("settings").children).slice(1).length-1-i)*100+50)
-        })
+         setTimeout( () => {
+
+             isHovered = false
+             document.getElementById("settings-arrow").classList.add("arrow-hover")
+             document.getElementById("settings").style.height = 3 + "rem"
+             document.getElementById("settings-arrow").classList.remove("arrow-hover")
+             Array.from(document.getElementById("settings").children).slice(1).forEach( (e,i) => {
+                 setTimeout( () => {if(!isHovered) e.style.display = "none"}, (Array.from(document.getElementById("settings").children).slice(1).length-1-i)*100+50)
+             })
+         }, 100)
     })
     Array.from(document.getElementById("settings").children).splice(1).forEach((e,i) => {
         e.addEventListener("click",() => elementSelect(i))
@@ -279,7 +282,7 @@ function showPossibleWords() {
 
     const matches = validSolutions.filter(word => {
         return rowLetters.every((letter, i) => {
-            if(letter == "") return true
+            if(letter == "" || letter == "X") return true
             return letter == word[i]
         })
     }) 
