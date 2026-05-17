@@ -85,8 +85,8 @@ function buildLandscapeOverlay() {
                         <img src="assets/person-image.jpg" alt="Foto" width="100%" height="100%" style="object-fit:cover;display:block;">
                     </div>
                     <div class="id-fields">
-                        <div class="field"><div class="field-label">Navn</div><div class="field-value">Frida Wedell Seerup</div></div>
-                        <div class="field"><div class="field-label">Fødselsdag</div><div class="field-value">07 jan, 2008</div></div>
+                        <div class="field"><div class="field-label">Navn</div><div class="field-value">Victor Ninn Kuzimski</div></div>
+                        <div class="field"><div class="field-label">Fødselsdag</div><div class="field-value">24 sep, 2007</div></div>
                     </div>
                 </div>`
         },

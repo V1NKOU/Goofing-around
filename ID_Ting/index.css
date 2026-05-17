@@ -15,7 +15,8 @@ body {
     color: #fff;
     display: flex;
     justify-content: center;
-    overflow-x: hidden;
+    overflow: hidden;
+
 }
 
 .app {
