@@ -224,17 +224,17 @@ body {
 }
 
 .field-label {
-    font-size: 11px;
+    font-size: 10px;
     color: rgba(255,255,255,0.62);
     margin-bottom: 1px;
     font-weight: 300;
 }
 
 .field-value {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     color: #fff;
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
 /* Age display */
