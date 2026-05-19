@@ -49,15 +49,84 @@ document.addEventListener('mouseup',   onEnd);
 
 dotEls.forEach(d => d.addEventListener('click', () => setSlide(+d.dataset.idx)));
 
+// QR code generator — produces a fake but visually realistic version-10 (57×57) QR code
+function buildFakeQR(seed) {
+    const N = 57;
+    let s = seed >>> 0;
+    function rng() {
+        s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+        return s / 0x100000000;
+    }
+
+    const g = Array.from({length: N}, () => Array.from({length: N}, () => rng() > 0.55 ? 1 : 0));
+
+    function finder(r0, c0) {
+        for (let i = -1; i <= 7; i++)
+            for (let j = -1; j <= 7; j++) {
+                const r = r0+i, c = c0+j;
+                if (r >= 0 && r < N && c >= 0 && c < N) g[r][c] = 0;
+            }
+        const p = [[1,1,1,1,1,1,1],[1,0,0,0,0,0,1],[1,0,1,1,1,0,1],[1,0,1,1,1,0,1],[1,0,1,1,1,0,1],[1,0,0,0,0,0,1],[1,1,1,1,1,1,1]];
+        for (let i = 0; i < 7; i++)
+            for (let j = 0; j < 7; j++)
+                g[r0+i][c0+j] = p[i][j];
+    }
+
+    finder(0, 0);
+    finder(0, N-7);
+    finder(N-7, 0);
+
+    for (let i = 8; i < N-8; i++) {
+        g[6][i] = i % 2 === 0 ? 1 : 0;
+        g[i][6] = i % 2 === 0 ? 1 : 0;
+    }
+
+    function align(cr, cc) {
+        const p = [[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]];
+        for (let i = 0; i < 5; i++)
+            for (let j = 0; j < 5; j++)
+                g[cr-2+i][cc-2+j] = p[i][j];
+    }
+
+    for (const ar of [6, 28, 50])
+        for (const ac of [6, 28, 50]) {
+            if (ar <= 8 && ac <= 8) continue;
+            if (ar <= 8 && ac >= N-9) continue;
+            if (ar >= N-9 && ac <= 8) continue;
+            align(ar, ac);
+        }
+
+    const parts = ['<svg viewBox="0 0 57 57" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto"><rect width="57" height="57" fill="white"/><g fill="black">'];
+    for (let r = 0; r < N; r++)
+        for (let c = 0; c < N; c++)
+            if (g[r][c]) parts.push(`<rect x="${c}" y="${r}" width="1.1" height="1.1"/>`);
+    parts.push('</g></svg>');
+    return parts.join('');
+}
+
+let qrTimer = null;
+
+function startQRCycle() {
+    const wrap = document.getElementById('qrCodeWrap');
+    function tick() { wrap.innerHTML = buildFakeQR(Math.random() * 0xFFFFFFFF >>> 0); }
+    tick();
+    qrTimer = setInterval(tick, 167);
+}
+
+function stopQRCycle() {
+    clearInterval(qrTimer);
+    qrTimer = null;
+}
+
 // QR modal
 const qrModal    = document.getElementById('qrModal');
 const qrBackdrop = document.getElementById('qrBackdrop');
 const qrClose    = document.getElementById('qrClose');
 const btnShowQR  = document.getElementById('btnShowQR');
 
-btnShowQR.addEventListener('click', () => qrModal.classList.add('open'));
-qrBackdrop.addEventListener('click', () => qrModal.classList.remove('open'));
-qrClose.addEventListener('click',   () => qrModal.classList.remove('open'));
+btnShowQR.addEventListener('click', () => { qrModal.classList.add('open'); startQRCycle(); });
+qrBackdrop.addEventListener('click', () => { qrModal.classList.remove('open'); stopQRCycle(); });
+qrClose.addEventListener('click',   () => { qrModal.classList.remove('open'); stopQRCycle(); });
 
 // Landscape view
 const btnLandscape = document.getElementById('btnLandscape');
