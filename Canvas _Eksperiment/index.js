@@ -3,14 +3,39 @@ const ctx = canvas.getContext("2d")
 var mouseX
 var mouseY
 var balls = []
-var gravity = 0.6
-var selectedColor = {fill: "#c73d28", border: "#802f22"}
-canvas.addEventListener("mousemove", e => {
+var gravity = 1600
+var selectedColor = {fill: document.querySelector(".selected").dataset.color,border: document.querySelector(".selected").dataset.border}
+//{fill: "#c73d28", border: "#802f22"}
+var lastTime = 0
+var isDragging = false
+var arrowPos = {}
+canvas.addEventListener("mousemove", (e) => {
     mouseX = e.offsetX
     mouseY = e.offsetY
 })
+canvas.addEventListener("mouseleave", () => {
+    let velX = -(mouseX - arrowPos.startX) * 5
+    let velY = -(mouseY - arrowPos.startY) * 5
+    if (isDragging) createBall(arrowPos.startX, arrowPos.startY, velX, velY)
+    isDragging = false
+})
+canvas.addEventListener("mouseup", () => {
+    let velX = -(mouseX - arrowPos.startX) * 5
+    let velY = -(mouseY - arrowPos.startY) * 5
+    console.log(mouseX, mouseY)
+    if (isDragging) createBall(arrowPos.startX, arrowPos.startY, velX, velY)
+    isDragging = false
+})
 
-canvas.addEventListener("click", () => createBall(mouseX, mouseY))
+canvas.addEventListener("mousedown", (e) => {
+    if (!isDragging) {
+        arrowPos.startX = e.offsetX
+        arrowPos.startY = e.offsetY
+    }
+    isDragging = true
+
+
+})
 
 document.querySelectorAll(".colorOption").forEach(e => {
     e.addEventListener("click", () => {
@@ -22,51 +47,153 @@ document.querySelectorAll(".colorOption").forEach(e => {
     e.style.backgroundColor = e.dataset.color
     e.style.borderColor = e.dataset.border
 })
+borderBox.addEventListener('click', () => {
+    const borderBox = document.getElementById('borderBox')
+    const borderCross = document.getElementById('borderCross')
+
+    if (borderBox.classList.contains('toggled')) { 
+        borderBox.classList.remove('toggled')
+        borderCross.classList.add('hidden')
+    } else {
+            borderBox.classList.add('toggled')
+            borderCross.classList.remove('hidden')
+    }
+    
+})
 
 
+/*
+//SPAWN LOADS A BALLSIES
+for (let i = 0; i <= 3000; i++)
+{
+    var ball = {
+        x: 250,
+        y: 250,
+        fillCol: selectedColor.fill,
+        borCol: selectedColor.border,
+        radius: 10,
+        velY: Math.random()*100,
+        velX: Math.random()*100
+    }
+    balls.push(ball)
+}*/
 
 //START THE DRAWING STUFF!!
 
-loop()
+requestAnimationFrame(loop)
 
-function createBall(x,y,) {
+
+function createBall(x, y, velX, velY) {
     var ball = {
         x: x,
         y: y,
         fillCol: selectedColor.fill,
         borCol: selectedColor.border,
-        radius: 20,
-        velY: 1,
-        velX: 0
+        radius: Number(document.getElementById("radiusScale").value),
+        velY: velY,
+        velX: velX
     }
     balls.push(ball)
-    placeBall(ball)
 }
+
+function drawArrow() {
+    const dist = Math.sqrt((mouseX - arrowPos.startX)*(mouseX - arrowPos.startX)+(mouseY - arrowPos.startY)*(mouseY - arrowPos.startY))
+    const headLength = Math.min(dist*0.2, 30)
+    const headAngle = Math.PI/7
+
+    const angle = Math.atan2((arrowPos.startY - mouseY),(arrowPos.startX - mouseX))
+
+    ctx.beginPath()
+    ctx.lineWidth = 10
+    ctx.strokeStyle = "yellow"
+    ctx.moveTo(mouseX,mouseY)
+    ctx.lineTo(arrowPos.startX,arrowPos.startY)
+    ctx.lineTo(arrowPos.startX - headLength * Math.cos(angle - headAngle), arrowPos.startY - headLength * Math.sin(angle - headAngle))
+    ctx.moveTo(arrowPos.startX,arrowPos.startY)
+    ctx.lineTo(arrowPos.startX - headLength * Math.cos(angle + headAngle), arrowPos.startY - headLength * Math.sin(angle + headAngle))
+    ctx.stroke()
+    ctx.closePath()
+}
+
 
 function placeBall(ball) {
     ctx.beginPath()
     ctx.fillStyle = ball.fillCol
     ctx.arc(ball.x,ball.y,ball.radius,0,2*Math.PI)
     ctx.fill()
-    ctx.lineWidth = 3
+    ctx.lineWidth = ball.radius * 0.15
     ctx.strokeStyle = ball.borCol
-    ctx.stroke()
+    if (document.getElementById('borderBox').classList.contains('toggled')) ctx.stroke()
     ctx.closePath()
 }
 
-function loop() {
-    ctx.clearRect(0,0, canvas.width, canvas.height)
+function loop(currentTime) {
 
-    //
+    let dt =(currentTime - lastTime) / 1000
+    dt = Math.min(dt, 0.05)
+    lastTime = currentTime
+
+
+    ctx.clearRect(0,0, canvas.width, canvas.height)
+    
+    if (isDragging) drawArrow()
+    
     for (let i = 0; i < balls.length; i++) {
         //BALL POSITION UPDATE
-        balls[i].velY += gravity
-        balls[i].y += balls[i].velY
-        //BOUNCE!
+        balls[i].velY += gravity*dt
+        balls[i].y += balls[i].velY*dt
+        balls[i].velX *= 0.99
+        balls[i].x += balls[i].velX*dt
+        //CONTAIN THE BALL AND MAKE IT BOUNCE!!
         if (balls[i].y + balls[i].radius >= canvas.height) {
             balls[i].y = canvas.height - balls[i].radius
-            balls[i].velY = -(balls[i].velY-0.5)*0.9
+            balls[i].velY *= -0.9
         }
+        if (balls[i].y - balls[i].radius < 0) {
+            balls[i].y = balls[i].radius
+            balls[i].velY *= -0.9
+        }
+        if (balls[i].x - balls[i].radius < 0) {
+            balls[i].x = balls[i].radius
+            balls[i].velX *= -0.9
+        }
+        if (balls[i].x + balls[i].radius > canvas.width) {
+            balls[i].x = canvas.width - balls[i].radius
+            balls[i].velX *= -0.9
+        }
+
+        //BALL-BALL COLLISIONS!
+        for (let j = i+1; j < balls.length; j++) {
+            let a = balls[i]
+            let b = balls[j]
+            let dx = b.x - a.x
+            let dy = b.y - a.y
+            let dist = Math.sqrt(dx*dx + dy*dy)
+            let nx = dx / dist
+            let ny = dy / dist
+
+            //WHAT HAPPENS WHEN THEY TOUCHYYY
+            if (dist < a.radius + b.radius) {
+                let overlap = a.radius + b.radius - dist
+                a.x -= (overlap / 2) * nx
+                a.y -= (overlap / 2) * ny
+                b.x += (overlap / 2) * nx
+                b.y += (overlap / 2) * ny
+
+                let aDot = a.velX * nx + a.velY * ny
+                let bDot = b.velX * nx + b.velY * ny
+
+                let relVel = bDot - aDot
+                if (relVel < 0) {   // only resolve if actually approaching
+                    a.velX += (bDot - aDot) * nx
+                    a.velY += (bDot - aDot) * ny
+                    b.velX += (aDot - bDot) * nx
+                    b.velY += (aDot - bDot) * ny
+                }
+                balls[i].velX *= 0.8
+            }
+        }
+
         placeBall(balls[i])
     }
     requestAnimationFrame(loop)

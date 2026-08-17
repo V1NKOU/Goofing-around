@@ -7,18 +7,32 @@
     <title>Canvas Shiii</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="icon" type="image/x-icon" href="./sphere.ico">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
     
 </head>
 <body>
     <h1 id="title">Bouncy Balls Simulator</h1>
-    <div id="ballColors">
-        <h2>Colors</h2>
-        <div id="redColor" class="colorOption selected" data-color="#c73d28" data-border="#802f22"></div>
-        <div id="blueColor" class="colorOption" data-color="#2544db" data-border="#213494"></div>
-        <div id="greenColor" class="colorOption" data-color="#30b840" data-border="#23782d"></div>
+    <div id="settingsContainer">
+        <div id="ballColors">
+            <h2>Colors</h2>
+            <div id="redColor" class="colorOption" data-color="#c73d28" data-border="#802f22"></div>
+            <div id="blueColor" class="colorOption selected" data-color="#2544db" data-border="#213494"></div>
+            <div id="greenColor" class="colorOption" data-color="#30b840" data-border="#23782d"></div>
+        </div>
+        <div id="radiusScaleContainer">
+            <h2>Radius</h2>
+            <input type="range" min="1" max="40" value="20" name="" id="radiusScale" class="slider">
+        </div>
+        
+        <div id="toggleBorder">
+            <h2>Border</h2>
+            <div class="toggleBox toggled" id="borderBox">
+                <svg id="borderCross"xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#575757"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </div>
+        </div>
     </div>
-    <canvas id="draw-canvas" height="500px" width="500px" style="border: 2px solid black;"></canvas>
+    <canvas id="draw-canvas" height="500px" width="500px" style="border: 4px solid black;"></canvas>
 
 </body>
 <script src="index.js"></script>
